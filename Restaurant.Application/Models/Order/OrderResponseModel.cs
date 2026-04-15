@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Models
+﻿using Restaurant.Application.Models.MenuItem;
+
+namespace Restaurant.Application.Models.Order
 {
     public class OrderResponseModel
     {

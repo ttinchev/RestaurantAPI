@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Restaurant.Application.Models;
+using Restaurant.Application.Models.Order;
 
 namespace Restaurant.Application.Commands
 {

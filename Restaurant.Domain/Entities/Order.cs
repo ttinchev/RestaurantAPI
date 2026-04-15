@@ -1,6 +1,4 @@
-﻿using System.Xml.Schema;
-
-namespace Restaurant.Domain.Entities
+﻿namespace Restaurant.Domain.Entities
 {
     public class Order
     {

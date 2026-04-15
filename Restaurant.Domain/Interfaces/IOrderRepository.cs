@@ -4,6 +4,7 @@ namespace Restaurant.Domain.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
-            Task<Order?> GetOrderWithMenuItemsAsync(int id);
+        Task<Order?> GetOrderWithMenuItemsAsync(int id);
+        Task<IEnumerable<Order>> GetAllWithMenuItemsAsync();
     }
 }

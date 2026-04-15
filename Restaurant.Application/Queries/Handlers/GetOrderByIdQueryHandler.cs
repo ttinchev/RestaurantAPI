@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Restaurant.Application.Models;
+using Restaurant.Application.Models.MenuItem;
+using Restaurant.Application.Models.Order;
 using Restaurant.Domain.Interfaces;
 
 namespace Restaurant.Application.Queries.Handlers

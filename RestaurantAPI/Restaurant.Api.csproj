@@ -19,7 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Model\" />
+    <Folder Include="DTO\Response\" />
+    <Folder Include="DTO\Request\" />
   </ItemGroup>
 
   <ItemGroup>

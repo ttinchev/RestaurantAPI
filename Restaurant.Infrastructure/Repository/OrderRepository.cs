@@ -18,5 +18,14 @@ namespace Restaurant.Infrastructure.Repository
                     .ThenInclude(oi => oi.MenuItem)
                 .FirstOrDefaultAsync(o => o.Id == id);
         }
+
+        public async Task<IEnumerable<Order>> GetAllWithMenuItemsAsync()
+        {
+            return await _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.MenuItem)
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

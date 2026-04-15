@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Application.Commands;
 using Restaurant.Domain.Interfaces;
 using Restaurant.Infrastructure.Persistance;
 using Restaurant.Infrastructure.Repository;
@@ -12,6 +13,8 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddDbContext<RestaurantContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateOrderCommand>());
 
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();

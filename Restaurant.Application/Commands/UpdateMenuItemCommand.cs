@@ -1,6 +1,8 @@
-﻿namespace Restaurant.Application.Models
+using MediatR;
+
+namespace Restaurant.Application.Commands
 {
-    public class MenuItemResponseModel
+    public class UpdateMenuItemCommand : IRequest<int>
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
