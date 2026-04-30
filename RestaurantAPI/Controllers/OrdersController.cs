@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Api.DTO.Request;
 using Restaurant.Application.Commands;
@@ -11,9 +13,11 @@ namespace Restaurant.Api.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public OrdersController(IMediator mediator)
+        private readonly IValidator<CreateOrderDto> _createValidator;
+        public OrdersController(IMediator mediator, IValidator<CreateOrderDto> createValidator)
         {
             _mediator = mediator;
+            _createValidator = createValidator;
         }
 
         [HttpGet]
@@ -33,6 +37,13 @@ namespace Restaurant.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderDto request)
         {
+            ValidationResult validationResult = await _createValidator.ValidateAsync(request);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(new { Message = "Validation failed", Errors = validationResult.Errors.Select(e => e.ErrorMessage) });
+            }
+
             var result = await _mediator.Send(new CreateOrderCommand
             {
                 TableId = request.TableId,

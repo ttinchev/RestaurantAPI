@@ -1,5 +1,9 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Api.DTO.Request;
+using Restaurant.Api.Validators;
 using Restaurant.Application.Commands;
+using Restaurant.Application.Models.Order;
 using Restaurant.Domain.Interfaces;
 using Restaurant.Infrastructure.Persistance;
 using Restaurant.Infrastructure.Repository;
@@ -25,9 +29,29 @@ internal class Program
         builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        // FluentValidation - Order validators
+        builder.Services.AddScoped<IValidator<CreateOrderDto>, OrderValidator>();
+        builder.Services.AddScoped<IValidator<UpdateOrderDto>, UpdateOrderValidator>();
+        builder.Services.AddScoped<IValidator<OrderItemRequestModel>, OrderItemValidator>();
+
+        // FluentValidation - Category validators
+        builder.Services.AddScoped<IValidator<CreateCategoryDto>, CreateCategoryValidator>();
+        builder.Services.AddScoped<IValidator<UpdateCategoryDto>, UpdateCategoryValidator>();
+
+        // FluentValidation - MenuItem validators
+        builder.Services.AddScoped<IValidator<CreateMenuItemDto>, CreateMenuItemValidator>();
+        builder.Services.AddScoped<IValidator<UpdateMenuItemDto>, UpdateMenuItemValidator>();
+
+        // FluentValidation - Table validators
+        builder.Services.AddScoped<IValidator<CreateTableDto>, CreateTableValidator>();
+        builder.Services.AddScoped<IValidator<UpdateTableDto>, UpdateTableValidator>();
+
+        // FluentValidation - Payment validators
+        builder.Services.AddScoped<IValidator<CreatePaymentDto>, CreatePaymentValidator>();
+        builder.Services.AddScoped<IValidator<UpdatePaymentDto>, UpdatePaymentValidator>();
 
         var app = builder.Build();
 

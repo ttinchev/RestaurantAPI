@@ -1,0 +1,15 @@
+using FluentValidation;
+using Restaurant.Api.DTO.Request;
+
+namespace Restaurant.Api.Validators
+{
+    public class UpdateCategoryValidator : AbstractValidator<UpdateCategoryDto>
+    {
+        public UpdateCategoryValidator()
+        {
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Category name is required.")
+                .MaximumLength(100).WithMessage("Category name must not exceed 100 characters.");
+        }
+    }
+}

@@ -55,9 +55,9 @@ namespace Restaurant.Infrastructure.UOW
             _transaction = null;
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            return context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
     }
 }

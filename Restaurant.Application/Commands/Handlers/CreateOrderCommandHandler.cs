@@ -11,8 +11,18 @@ namespace Restaurant.Application.Commands.Handlers
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<int> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
+            if(request.OrderItems == null || !request.OrderItems.Any())
+            {
+                throw new ArgumentException("Order must contain at least one item.");
+            }
+
+            if(request.TableId <= 0)
+            {
+                throw new ArgumentException("Invalid table ID.");
+            }
+
             var dbOrderItems = new List<OrderItem>();
             foreach (var orderItem in request.OrderItems)
             {
@@ -27,8 +37,9 @@ namespace Restaurant.Application.Commands.Handlers
                 TableId = request.TableId,
                 OrderItems = dbOrderItems
             };
-            _unitOfWork.OrdersRepository.AddAsync(dbOrder);
-            return _unitOfWork.SaveChangesAsync();
+
+            await _unitOfWork.OrdersRepository.AddAsync(dbOrder);
+            return await _unitOfWork.SaveChangesAsync();
         }
     }
 }
